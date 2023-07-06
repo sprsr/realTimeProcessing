@@ -14,3 +14,17 @@ model = compressor.upload_model(
         input_shapes=INPUT_SHAPES,
 )
 
+COMPRESSED_MODEL_NAME = '12norm_v5'
+COMPRESSION_METHOD = CompressionMethod.PR_L2
+RECOMMENDATION_METHOD = RecommendationMethod.SLAMP
+
+for RATIO in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
+
+    compressed_model = compressor.recommendation_compression(
+            model_id=model.model_id,
+            model_name=COMPRESSED_MODEL_NAME,
+            compression_method=COMPRESSION_METHOD,
+            recommendation_method=RECOMMENDATION_METHOD,
+            recommendation_ratio=RATIO,
+            output_path=f"./compressed_model/{RATIO}_compressed_pothole.pt",
+
